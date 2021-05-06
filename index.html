@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+  <!-- ... -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/base.min.css">
+  <link rel="stylesheet" href="css/forms.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/components.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/utilities.min.css">
+  <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="antialiased text-yellow-600 px-6 bg-gradient-to-r from-blue-300 to-blue-100">
+  <div class="max-w-xl mx-auto py-12 divide-y divide-yellow-500 md:max-w-4xl">
+    <div class="py-6 text-center">
+      <h2 class="text-3xl font-bold">PANCAKESWAP NEW LIQUIDITY SNIPER</h2>
+    </div>
+    <div class="py-12">
+      <h3 class="text-2xl font-bold">Buy Setting</h3>
+      <div class="mt-8 w-full">
+        <div class="grid grid-cols-1 gap-3">
+          <label class="block">
+            <span class="text-yellow-600">WSS NODE</span>
+            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">NEW TOKEN CONTRACT</span>
+            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">WALLET PRIVATE KEY</span>
+            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">WBNB1 ADDRESS</span>
+            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">WBNB2 ADDRESS(NEW TOKEN)</span>
+            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">MAX PURCHASE AMOUNT</span>
+            <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">GAS(GWEI)</span>
+            <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+          <label class="block">
+            <span class="text-yellow-600">WALLET ADDRESS</span>
+            <input type="text" name="wallet_address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+          </label>
+        </div>
+      </div>    
+    </div>
+    <div class="py-12">
+      <h3 class="text-2xl font-bold">Sell Setting</h3>
+      <div class="mt-8 w-full">        
+        <div class="block">
+          <div class="mt-2">
+            <div>
+              <label class="inline-flex items-center">
+                <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" checked="">
+                <span class="ml-2">SELL ON/OFF</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-1 gap-3">
+            <label class="block">
+              <span class="text-yellow-600">SELL MAX AMOUNT %</span>
+              <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+            </label>
+            <label class="block">
+              <span class="text-yellow-600">SELL INTERVAL</span>
+              <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+            </label>
+          </div>
+          <div class="grid grid-cols-1 gap-3">
+            <label class="block">
+              <span class="text-yellow-600">SELL INTERVAL DELAY</span>
+              <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+            </label>
+            <label class="block">
+              <span class="text-yellow-600">AMOUNT PER INTERVAL %</span>
+              <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-12 border-none">
+      <button class="focus:outline-none float-left bg-gradient-to-r from-green-500 to-pink-500 text-white font-bold py-2 px-4 rounded-full" onclick="getBalance()">
+        Start
+      </button>
+      <button class="focus:outline-none float-right bg-gradient-to-r from-green-500 to-pink-500 text-white font-bold py-2 px-4 rounded-full">
+        Stop
+      </button>
+    </div>
+    <div class="py-12">
+      <label class="block">
+        <span class="text-yellow-600">Status</span>
+        <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="3" style="margin-top: 4px; margin-bottom: 0px; height: 123px;"></textarea>
+      </label>
+    </div>
+  </div>
+</body>
+<script>
+  function getBalance()
+  {
+    var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/5db0a2fb8a8948fdbe57bb19eecb5674'));
+
+    web3.eth.getBalance($("input[name=wallet_address]").val()).then((res)=>alert(web3.utils.fromWei(res,'ether')));
+  }
+</script>
+</html>
