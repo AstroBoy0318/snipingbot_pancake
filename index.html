@@ -112,6 +112,8 @@
   const web3 = new Web3('https://bsc-dataseed.binance.org/');
   var pairs = 0;
   var interval = 1000;
+  var statusText = [];
+  var maxStatusLine = 100;
   function getBalance()
   {
     /*
@@ -1054,8 +1056,21 @@
   }
 
   function setStatusText(newText)
-  {    
-    $("textarea[name=status]").val($("textarea[name=status]").val() + "\n" + newText);
+  {
+    addStatusText(newText);
+    var now = new Date();
+    addStatusText(now.toLocaleString());
+    $("textarea[name=status]").val(statusText.join("\n"));
+    $("textarea[name=status]").scrollTop($("textarea[name=status]")[0].scrollHeight);
+  }
+
+  function addStatusText(newText)
+  {
+    if(statusText.length >= maxStatusLine)
+    {
+      statusText = statusText.shift();
+    }
+    statusText.push(newText);
   }
 </script>
 </html>
