@@ -4,10 +4,13 @@ var factoryContract = new web3.eth.Contract(abi, address);
 
 var tokenToBuy = '';
 
+//new liquidity but not live yet
+var newLiquidities = [];
+
 //initial pairs length
 var pairs = 0;
 //check interval
-var interval = 1000;
+var interval = 500;
 //array of status text line
 var statusText = [];
 var maxStatusLine = 100;
@@ -49,6 +52,9 @@ function check() {
                     if (res !== true) {
                         check();
                     }
+                });
+                newLiquidities.forEach((idx)=>{
+                    checkNewLiquidity(idx);
                 });
             }
             else {
@@ -108,13 +114,26 @@ async function checkNewLiquidity(index) {
 
     //if token0 or token1 is the one that i want
     if (token0.toLowerCase() == tokenToBuy || token1.toLowerCase() == tokenToBuy) {
+        var token0Contract = new web3.eth.Contract(erc20, token0);
+        var token1Contract = new web3.eth.Contract(erc20, token1);
+
+        var token0Balance = await token0Contract.methods.balanceOf(token0).call();
+        var token1Balance = await token1Contract.methods.balanceOf(token1).call();
+        if(token0Balance == 0 || token1Balance == 0)
+        {
+            if(newLiquidities.findIndex(findValue,index) < 0)
+                newLiquidities.push(index);
+            return false;
+        }
+
+        setStatusText("New liquidity index: " + index, "black", "bold");
+
         setStatusText("New liquidity contract: " + pairAddress, "red", "bold");
         var liquidityName = await pairContract.methods.name().call();
         setStatusText("New liquidity name: " + liquidityName, "red", "bold");
 
         //get token0's name, symbol
         setStatusText("Token 0 Address: " + token0, "blue", "bold");
-        var token0Contract = new web3.eth.Contract(erc20, token0);
         var token0Name = await token0Contract.methods.name().call();
         setStatusText("Token 0 Name: " + token0Name, "green", "bold");
         var token0Symbol = await token0Contract.methods.symbol().call();
@@ -122,7 +141,6 @@ async function checkNewLiquidity(index) {
 
         //get token1's name, symbol
         setStatusText("Token 1 Address: " + token1, "blue", "bold");
-        var token1Contract = new web3.eth.Contract(erc20, token1);
         var token1Name = await token1Contract.methods.name().call();
         setStatusText("Token 1 Name: " + token1Name, "green", "bold");
         var token1Symbol = await token1Contract.methods.symbol().call();
@@ -132,6 +150,8 @@ async function checkNewLiquidity(index) {
     }
     return false;
 }
+
+
 //add status text function
 function setStatusText(newText, color, style) {
     var className = "";
@@ -184,4 +204,8 @@ async function test()
             i--;
         }
     }
+}
+//find a specified value in array
+function findValue(val) {
+    return val == this;
 }
